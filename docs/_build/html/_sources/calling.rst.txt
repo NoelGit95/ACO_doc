@@ -23,7 +23,9 @@ Like this:
 
 .. image:: _static/admin.png
       :align: center
-      :width: 700 px
+
+
+
 
 
 However, this can also be done more elegantly by adding a Timeout to every single page of your
