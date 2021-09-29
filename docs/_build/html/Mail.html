@@ -1,0 +1,385 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Step 3: Embedding the function &mdash; Automatic Carbon Offsetting  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Step 4: Adding additional code" href="additional.html" />
+    <link rel="prev" title="Step 2: Importing Modules" href="integrate.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Automatic Carbon Offsetting
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Requirements.html">Step 1: Creating SMTP account</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integrate.html">Step 2: Importing Modules</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Step 3: Embedding the function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#initial-set-up">Initial set up</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sequence-of-events">Sequence of events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-the-function-to-your-subsession-class">Add the function to your Subsession class</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="additional.html">Step 4: Adding additional code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calling.html">Step 5: Calling the function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Automatic Carbon Offsetting</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Step 3: Embedding the function</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/Mail.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="admonition note" id="mail">
+<p class="admonition-title">Note</p>
+<p><strong>Source Code:</strong> All source code described on this website can simply be copied into your <em>oTree</em> project
+from the code block at the bottom of this section.</p>
+</div>
+<div class="section" id="step-3-embedding-the-function">
+<h1>Step 3: Embedding the function<a class="headerlink" href="#step-3-embedding-the-function" title="Permalink to this headline">¶</a></h1>
+<p>Next, the <code class="docutils literal notranslate"><span class="pre">send_payment_mail()</span></code> function has to be embedded in the Subsession class of the models.py file.
+The following section explains how the function works, how it can be modified and how it has to be integrated
+in the Subsession class of your <em>oTree</em> app.</p>
+<div class="section" id="initial-set-up">
+<h2>Initial set up<a class="headerlink" href="#initial-set-up" title="Permalink to this headline">¶</a></h2>
+<p>First, enter your SMTP account credentials in the <cite>#CONSTANTS</cite> section of the function.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>MAIL_USER &amp; MAIL_PASS:</strong> There are two ways to enter your SMTP account info. Either enter a API key and
+secret key combination or enter your SMTP account email and your password.</p></li>
+<li><p><strong>MAIL_SERVER:</strong> Enter the the name of the SMTP server of your provider. You can find the server’s
+name in the SMTP configuration settings of your SMTP account. The <em>Mailjet</em> server is called “in-v3.mailjet.com”,
+the <em>SendinBlue</em> server is called “smtp-relay.sendinblue.com”.</p></li>
+<li><p><strong>MAIL_SENDER:</strong> Enter your SMTP validated email address here. It is possible to enter the same email address
+for MAIL_USER and MAIL_SENDER.</p></li>
+<li><p><strong>MAIL_PORT:</strong> Enter the port through which a connection to the server is established. Various ports are
+possible, click <a class="reference external" href="https://kinsta.com/blog/smtp-port/">here</a> for an overview. We found that port 465 works best for
+us. If you have troubles with port 465, try port 587.</p></li>
+<li><p><strong>DONATION_MINIMUM:</strong> The minimal possible donation to make is 1 cent. This value must not be changed.</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
+<p>The function requires the following six parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">self</span></code>: self is required by all functions in the oTree framework. It has no explicit use within this particular function.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">weight_to_donate</span></code>: A float value used to pass the amount of carbon emission that is saved by the experimental participants.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">unit</span></code>: A string value that defines the unit of the saved carbon emission. The following values are accepted: <code class="docutils literal notranslate"><span class="pre">[&quot;mg&quot;,</span> <span class="pre">&quot;g&quot;,</span> <span class="pre">&quot;kg&quot;,</span> <span class="pre">&quot;t&quot;,</span> <span class="pre">&quot;oz&quot;,</span> <span class="pre">&quot;lbs&quot;,</span> <span class="pre">&quot;st&quot;]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">experiment_name</span></code>: A string value that specifies the name of the experiment (e.g. “Carbon Emission Task”).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">payment_e_mail_name</span></code>: A string that specifies the name of the person or team that receives the mail.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">payment_e_mail_to</span></code>: A list containing the mail addresses of all recipients . If the mail is only to be sent to one address then a single string can be passed to the function.</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="sequence-of-events">
+<h2>Sequence of events<a class="headerlink" href="#sequence-of-events" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ol class="arabic">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">weight_to_donate</span></code> value is converted to metric tons. The conversion is based on the <code class="docutils literal notranslate"><span class="pre">unit</span></code> value.</p></li>
+<li><p>The current CO2 price per ton for emission certificates is fetched from a price endpoint that is provided by
+<a class="reference external" href="https://www.compensators.org/">Compensators</a>.</p></li>
+<li><p>The price of the carbon-emission certificate is calculated.</p></li>
+<li><p>The contents of the email are defined.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The mail subject includes the <code class="docutils literal notranslate"><span class="pre">experiment_name</span></code> parameter.</p></li>
+<li><p>The mail body includes the <code class="docutils literal notranslate"><span class="pre">payment_e_mail_name</span></code> parameter as an initial greeting. Furthermore,
+the body includes the total weight of carbon-emission saved, the current price per ton for
+carbon-emission certificates, as well as the link to Compensators
+<a class="reference external" href="https://www.spendenformular-direkt.org/forms/6944d11a-60d9-48a2-803f-b4b0c7797cb9">donation form</a>
+with the correct price to make the carbon-emission certificate purchase. These contents can be
+changed at will.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>A connection to the SMTP server is established and the email is sent to all recipients specified in
+the <code class="docutils literal notranslate"><span class="pre">payment_e_mail_to</span></code> list.</p></li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="add-the-function-to-your-subsession-class">
+<h2>Add the function to your Subsession class<a class="headerlink" href="#add-the-function-to-your-subsession-class" title="Permalink to this headline">¶</a></h2>
+<p>Simply insert the function into the Subsession Class of your models.py file.
+The Subsession class should look something like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Subsession</span><span class="p">(</span><span class="n">BaseSubsession</span><span class="p">):</span>
+
+    <span class="c1">#-------------------------</span>
+    <span class="c1">#ALL YOUR OTHER CODE HERE</span>
+    <span class="c1">#-------------------------</span>
+
+    <span class="k">def</span> <span class="nf">send_payment_mail</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                          <span class="n">weight_to_donate</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+                          <span class="n">unit</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;t&quot;</span><span class="p">,</span>
+                          <span class="n">experiment_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Experiment Name&quot;</span><span class="p">,</span>
+                          <span class="n">payment_e_mail_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;John Doe&quot;</span><span class="p">,</span>
+                          <span class="n">payment_e_mail_to</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;john.doe@gmail.com&quot;</span><span class="p">]):</span>
+
+        <span class="c1">#CONSTANTS:</span>
+        <span class="n">MAIL_USER</span> <span class="o">=</span> <span class="s2">&quot;API key or SMTP account email&quot;</span>
+        <span class="n">MAIL_PASS</span> <span class="o">=</span> <span class="s2">&quot;API secret key or SMTP account password&quot;</span>
+        <span class="n">MAIL_SERVER</span> <span class="o">=</span> <span class="s2">&quot;SMTP Mail server here e.g.: `in-v3.mailjet.com`&quot;</span>
+        <span class="n">MAIL_SENDER</span> <span class="o">=</span> <span class="s2">&quot;validated.email@gmail.com&quot;</span>
+        <span class="n">MAIL_PORT</span> <span class="o">=</span> <span class="mi">465</span>
+        <span class="n">DONATION_MINIMUM</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="c1">#UNIT CHECK:</span>
+        <span class="n">unit_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;mg&quot;</span><span class="p">,</span> <span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="s2">&quot;kg&quot;</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">,</span> <span class="s2">&quot;oz&quot;</span><span class="p">,</span> <span class="s2">&quot;lbs&quot;</span><span class="p">,</span> <span class="s2">&quot;st&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">unit</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">unit_list</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;unit parameter &quot;</span><span class="p">,</span> <span class="n">unit</span><span class="p">,</span> <span class="s2">&quot;not recognised. Unit has to be in &quot;</span><span class="p">,</span> <span class="n">unit_list</span><span class="p">)</span>
+
+        <span class="c1">#CONVERT UNIT TO METRIC TONS:</span>
+        <span class="k">if</span> <span class="n">unit</span> <span class="o">==</span> <span class="s2">&quot;mg&quot;</span><span class="p">:</span>
+            <span class="n">weight_in_tons</span> <span class="o">=</span> <span class="n">weight_to_donate</span> <span class="o">/</span> <span class="mi">1000000000</span>
+        <span class="k">if</span> <span class="n">unit</span> <span class="o">==</span> <span class="s2">&quot;g&quot;</span><span class="p">:</span>
+            <span class="n">weight_in_tons</span> <span class="o">=</span> <span class="n">weight_to_donate</span> <span class="o">/</span> <span class="mi">1000000</span>
+        <span class="k">if</span> <span class="n">unit</span> <span class="o">==</span> <span class="s2">&quot;kg&quot;</span><span class="p">:</span>
+            <span class="n">weight_in_tons</span> <span class="o">=</span> <span class="n">weight_to_donate</span> <span class="o">/</span> <span class="mi">1000</span>
+        <span class="k">if</span> <span class="n">unit</span> <span class="o">==</span> <span class="s2">&quot;t&quot;</span><span class="p">:</span>
+            <span class="n">weight_in_tons</span> <span class="o">=</span> <span class="n">weight_to_donate</span>
+        <span class="k">if</span> <span class="n">unit</span> <span class="o">==</span> <span class="s2">&quot;oz&quot;</span><span class="p">:</span>
+            <span class="n">weight_in_tons</span> <span class="o">=</span> <span class="n">weight_to_donate</span> <span class="o">/</span> <span class="mf">35273.96198069</span>
+        <span class="k">if</span> <span class="n">unit</span> <span class="o">==</span> <span class="s2">&quot;lbs&quot;</span><span class="p">:</span>
+            <span class="n">weight_in_tons</span> <span class="o">=</span> <span class="n">weight_to_donate</span> <span class="o">/</span> <span class="mf">2204.62262185</span>
+        <span class="k">if</span> <span class="n">unit</span> <span class="o">==</span> <span class="s2">&quot;st&quot;</span><span class="p">:</span>
+            <span class="n">weight_in_tons</span> <span class="o">=</span> <span class="n">weight_to_donate</span> <span class="o">/</span> <span class="mf">157.47304442</span>
+
+        <span class="c1">#GETTING THE CURRENT CO2 PRICE:</span>
+        <span class="n">price</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">price</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;http://compensate.compensators.org/price.php&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+            <span class="k">if</span> <span class="s1">&#39;price_per_ton&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">price</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Price not found in data&quot;</span><span class="p">)</span>
+            <span class="n">price_per_ton</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">price</span><span class="p">[</span><span class="s1">&#39;price_per_ton&#39;</span><span class="p">])</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="n">donation_in_cents</span> <span class="o">=</span> <span class="n">weight_in_tons</span> <span class="o">*</span> <span class="n">price_per_ton</span>
+
+        <span class="c1"># CHECK DONATION MINIMUM</span>
+        <span class="k">if</span> <span class="n">donation_in_cents</span> <span class="o">&lt;</span> <span class="n">DONATION_MINIMUM</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The donation is less than 1 cent, therefore too small. No Mail was sent.&quot;</span><span class="p">)</span>
+
+        <span class="c1">#SENDING THE PAYMENT MAIL</span>
+        <span class="k">else</span><span class="p">:</span>
+
+            <span class="c1">#Define the body of the mail</span>
+            <span class="n">body</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;Hello </span><span class="si">{</span><span class="n">payment_e_mail_name</span><span class="si">}</span><span class="s2">,</span>
+
+<span class="s2">The participants in your experiment: &quot;</span><span class="si">{</span><span class="n">experiment_name</span><span class="si">}</span><span class="s2">&quot; donated </span><span class="si">{</span><span class="n">weight_to_donate</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">unit</span><span class="si">}</span><span class="s2"> of CO2 Emission.</span>
+<span class="s2">This equals to </span><span class="si">{</span><span class="n">weight_in_tons</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> tons of CO2. At the current price of </span><span class="si">{</span><span class="p">(</span><span class="n">price_per_ton</span> <span class="o">/</span> <span class="mi">100</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> € per ton this sums up to a total donation of </span><span class="si">{</span><span class="p">(</span><span class="n">donation_in_cents</span> <span class="o">/</span> <span class="mi">100</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> €.</span>
+
+<span class="s2">To authorize the payment, please click here:</span>
+<span class="s2">https://www.spendenformular-direkt.org/forms/6944d11a-60d9-48a2-803f-b4b0c7797cb9?default_amount_1_in_cents=</span><span class="si">{</span><span class="n">donation_in_cents</span><span class="si">}</span><span class="s2"></span>
+
+<span class="s2">Best Regards</span>
+<span class="s2">The Automated Donation system :)</span>
+<span class="s2">          &quot;&quot;&quot;</span>
+
+            <span class="c1">#DEFINE MAIL SUBJECT ADD MAIL BODY:</span>
+            <span class="n">email_text</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Subject: [</span><span class="si">{</span><span class="n">experiment_name</span><span class="si">}</span><span class="s2">] Please confirm the donation for the experiment</span><span class="se">\n\n</span><span class="si">{</span><span class="n">body</span><span class="si">}</span><span class="s2">&quot;</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1">#CONNECT TO THE SMTP SERVER:</span>
+                <span class="n">server</span> <span class="o">=</span> <span class="n">smtplib</span><span class="o">.</span><span class="n">SMTP_SSL</span><span class="p">(</span><span class="n">MAIL_SERVER</span><span class="p">,</span> <span class="n">MAIL_PORT</span><span class="p">)</span>
+
+                <span class="c1">#LOGIN TO THE SMTP SERVER</span>
+                <span class="n">server</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">MAIL_USER</span><span class="p">,</span> <span class="n">MAIL_PASS</span><span class="p">)</span>
+
+                <span class="c1">#SEND THE EMAIL</span>
+                <span class="n">server</span><span class="o">.</span><span class="n">sendmail</span><span class="p">(</span><span class="n">MAIL_SENDER</span><span class="p">,</span> <span class="n">payment_e_mail_to</span><span class="p">,</span> <span class="n">email_text</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">,</span> <span class="s1">&#39;ignore&#39;</span><span class="p">))</span>
+                <span class="n">server</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Your mail has been sent successfully&quot;</span><span class="p">)</span>
+
+            <span class="k">except</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Unable to send mail&quot;</span><span class="p">)</span>
+                <span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>In order to call the function some additional set up in your code is needed.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="additional.html" class="btn btn-neutral float-right" title="Step 4: Adding additional code" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="integrate.html" class="btn btn-neutral float-left" title="Step 2: Importing Modules" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Noel Strahm.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
