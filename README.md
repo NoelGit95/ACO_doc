@@ -7,4 +7,4 @@ When an experiment is finished, researchers receive an email and are directed to
 a platform facilitating the purchase and retirement of certificates. The tool helps researchers to purchase emission certificates with minimal effort,
 thereby reducing the entry cost for conducting experiments with environmental consequences.
 
-Check [ACO Documentation] (https://) for simple step by step instructions that show researchers how to integrate the software module in their oTree projects.
+Check [ACO Documentation](https://aco-doc.readthedocs.io/en/latest/) for simple step by step instructions that show researchers how to integrate the software module in their oTree projects.
