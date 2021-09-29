@@ -34,7 +34,7 @@ software module in their *oTree* projects.
 
 Support
 ---------
-For help, please contact sebastian.berger@iop.unibe.ch testtesttest
+For help, please contact noel.strahm@iop.unibe.ch
 
 Contents:
 -----------
