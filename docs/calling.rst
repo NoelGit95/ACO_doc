@@ -22,12 +22,11 @@ force a timeout by clicking the "Advance slowest participants” button in *oTre
 Like this:
 
 
-.. image:: _static/admin.png
+.. image:: _static/admin.jpg
       :align: center
 
 
-.. image:: _static/logo_aco.jpg
-      :align: center
+
 
 
 However, this can also be done more elegantly by adding a Timeout to every single page of your

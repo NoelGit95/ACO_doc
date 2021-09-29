@@ -21,7 +21,8 @@ have dropped out and might not finish the experiment on their own. One way to do
 force a timeout by clicking the "Advance slowest participants” button in *oTree's* admin interface.
 Like this:
 
-.. image:: _static/admin.png
+
+.. image:: _static/admin.jpg
       :align: center
 
 
